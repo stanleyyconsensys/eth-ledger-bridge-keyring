@@ -17,7 +17,6 @@ import HDKey from 'hdkey';
 
 import {
   LedgerBridge,
-  LedgerBridgeOptions,
   LedgerBridgeSerializeData,
 } from './ledger-bridge';
 
@@ -35,7 +34,7 @@ enum NetworkApiUrls {
 }
 
 type SignTransactionPayload = Awaited<
-  ReturnType<LedgerBridge<LedgerBridgeOptions>['deviceSignTransaction']>
+  ReturnType<LedgerBridge['deviceSignTransaction']>
 >;
 
 export type AccountDetails = {
@@ -98,9 +97,9 @@ export class LedgerKeyring extends EventEmitter {
 
   implementFullBIP44 = false;
 
-  bridge: LedgerBridge<LedgerBridgeOptions>;
+  bridge: LedgerBridge;
 
-  constructor({ bridge }: { bridge: LedgerBridge<LedgerBridgeOptions> }) {
+  constructor({ bridge }: { bridge: LedgerBridge }) {
     super();
 
     if (!bridge) {
