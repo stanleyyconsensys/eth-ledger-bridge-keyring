@@ -10,6 +10,7 @@ import {
   LedgerSignTypedDataResponse,
 } from './ledger-bridge';
 
+const DEFAULT_BRIDGE_URL = 'https://metamask.github.io/eth-ledger-bridge-keyring';
 const LEDGER_IFRAME_ID = 'LEDGER-IFRAME';
 
 export enum IFrameMessageAction {
@@ -85,8 +86,6 @@ type IFramePostMessage<TAction extends IFrameMessageAction> =
     target: typeof LEDGER_IFRAME_ID;
   };
 
-const BRIDGE_URL = 'https://metamask.github.io/eth-ledger-bridge-keyring';
-
 export type LedgerIframeBridgeOptions = {
   bridgeUrl: string;
 };
@@ -98,7 +97,7 @@ export class LedgerIframeBridge
 
   iframeLoaded = false;
 
-  #opts: LedgerIframeBridgeOptions = { bridgeUrl: BRIDGE_URL };
+  #opts: LedgerIframeBridgeOptions;
 
   eventListener?: (eventMessage: {
     origin: string;
@@ -118,10 +117,12 @@ export class LedgerIframeBridge
     transportType: string;
   };
 
-  constructor(opts?: LedgerIframeBridgeOptions) {
-    if (opts?.bridgeUrl) {
-      this.#opts.bridgeUrl = opts.bridgeUrl;
-    }
+  constructor(opts: LedgerIframeBridgeOptions = {
+    bridgeUrl: DEFAULT_BRIDGE_URL,
+  }) {
+    this.#opts = {
+      bridgeUrl: opts?.bridgeUrl,
+    };
   }
 
   async init() {
