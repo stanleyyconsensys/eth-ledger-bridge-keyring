@@ -120,8 +120,12 @@ export class LedgerIframeBridge
   constructor(opts: LedgerIframeBridgeOptions = {
     bridgeUrl: DEFAULT_BRIDGE_URL,
   }) {
+    const bridgeUrl = opts?.bridgeUrl;
+    if (typeof bridgeUrl !== 'string' || bridgeUrl.length === 0) {
+      throw new Error('bridgeURL is not a valid URL');
+    }
     this.#opts = {
-      bridgeUrl: opts?.bridgeUrl,
+      bridgeUrl,
     };
   }
 
