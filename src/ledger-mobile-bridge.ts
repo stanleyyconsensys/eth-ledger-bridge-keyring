@@ -162,7 +162,7 @@ export class LedgerMobileBridge
    * @returns Retrieve boolean.
    */
   async updateTransportMethod(transport: Transport): Promise<boolean> {
-    if(!transport.deviceModel){
+    if (!transport.deviceModel) {
       throw new Error('Property `deviceModel` is not defined in `transport`.');
     }
     if (!transport.deviceModel.id) {

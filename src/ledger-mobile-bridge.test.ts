@@ -230,7 +230,9 @@ describe('LedgerMobileBridge', function () {
     });
 
     it('throw error when middleware is not initialized', async function () {
-      bridge = new LedgerMobileBridge(null as unknown as LedgerTransportMiddleware);
+      bridge = new LedgerMobileBridge(
+        null as unknown as LedgerTransportMiddleware,
+      );
       await expect(
         bridge.updateTransportMethod(mockTransport as unknown as Transport),
       ).rejects.toThrow('Instance `transportMiddleware` is not initialized.');
