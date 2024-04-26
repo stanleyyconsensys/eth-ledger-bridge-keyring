@@ -43,6 +43,7 @@ export type AccountDetails = {
 export type LedgerBridgeKeyringOptions = {
   hdPath: string;
   accounts: readonly string[];
+  deviceId: string;
   accountDetails: Readonly<Record<string, AccountDetails>>;
   accountIndexes: Readonly<Record<string, number>>;
   implementFullBIP44: boolean;
@@ -69,6 +70,8 @@ function isOldStyleEthereumjsTx(
 
 export class LedgerKeyring extends EventEmitter {
   static type: string = keyringType;
+
+  deviceId = '';
 
   readonly type: string = keyringType;
 
@@ -116,6 +119,7 @@ export class LedgerKeyring extends EventEmitter {
     return {
       hdPath: this.hdPath,
       accounts: this.accounts,
+      deviceId: this.deviceId,
       accountDetails: this.accountDetails,
       implementFullBIP44: false,
     };
@@ -124,6 +128,7 @@ export class LedgerKeyring extends EventEmitter {
   async deserialize(opts: Partial<LedgerBridgeKeyringOptions> = {}) {
     this.hdPath = opts.hdPath ?? hdPathString;
     this.accounts = opts.accounts ?? [];
+    this.deviceId = opts.deviceId ?? '';
     this.accountDetails = opts.accountDetails ?? {};
 
     if (!opts.accountDetails) {
@@ -139,6 +144,14 @@ export class LedgerKeyring extends EventEmitter {
     );
 
     return Promise.resolve();
+  }
+
+  public setDeviceId(deviceId: string) {
+    this.deviceId = deviceId;
+  }
+
+  public getDeviceId() {
+    return this.deviceId;
   }
 
   #migrateAccountDetails(opts: Partial<LedgerBridgeKeyringOptions>) {
@@ -245,6 +258,10 @@ export class LedgerKeyring extends EventEmitter {
         })
         .catch(reject);
     });
+  }
+
+  getName() {
+    return keyringType;
   }
 
   async getFirstPage() {

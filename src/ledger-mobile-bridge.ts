@@ -13,12 +13,12 @@ import {
   LedgerSignTypedDataParams,
   LedgerSignTypedDataResponse,
 } from './ledger-bridge';
+import { MetaMaskLedgerHwAppEth } from './ledger-hw-app';
+import { TransportMiddleware } from './middleware';
 import {
   GetAppNameAndVersionResponse,
   LedgerMobileBridgeOptions,
-  TransportMiddleware,
-  type MetaMaskLedgerHwAppEth,
-} from './ledger-mobile-bridge/';
+} from './type';
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
 export interface LedgerMobileBridge {
@@ -31,7 +31,7 @@ export interface LedgerMobileBridge {
  * LedgerMobileBridge is a bridge between the LedgerKeyring and the LedgerTransportMiddleware.
  */
 export class LedgerMobileBridge
-  implements LedgerBridge<LedgerMobileBridgeOptions>, LedgerMobileBridge
+  implements LedgerBridge<LedgerMobileBridgeOptions>
 {
   #transportMiddleware?: TransportMiddleware;
 

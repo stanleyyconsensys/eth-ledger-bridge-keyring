@@ -1,11 +1,9 @@
 import ledgerService from '@ledgerhq/hw-app-eth/lib/services/ledger';
 import Transport from '@ledgerhq/hw-transport';
 
+import { MetaMaskLedgerHwAppEth } from './ledger-hw-app';
 import { LedgerMobileBridge } from './ledger-mobile-bridge';
-import {
-  LedgerTransportMiddleware,
-  MetaMaskLedgerHwAppEth,
-} from './ledger-mobile-bridge/';
+import { LedgerTransportMiddleware } from './middleware';
 
 const DEVICE_ID = 'DEVICE_ID';
 
