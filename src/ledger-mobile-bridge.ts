@@ -14,7 +14,7 @@ import {
   LedgerSignTypedDataResponse,
 } from './ledger-bridge';
 import { MetaMaskLedgerHwAppEth } from './ledger-hw-app';
-import { TransportMiddleware } from './middleware';
+import { TransportMiddleware } from './ledger-transport-middleware';
 import {
   GetAppNameAndVersionResponse,
   LedgerMobileBridgeOptions,
@@ -162,7 +162,10 @@ export class LedgerMobileBridge
    * @returns Retrieve boolean.
    */
   async updateTransportMethod(transport: Transport): Promise<boolean> {
-    if (!transport.deviceModel?.id) {
+    if(!transport.deviceModel){
+      throw new Error('Property `deviceModel` is not defined in `transport`.');
+    }
+    if (!transport.deviceModel.id) {
       throw new Error(
         'Property `deviceModel.id` is not defined in `transport`.',
       );

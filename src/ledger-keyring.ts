@@ -16,6 +16,7 @@ import { EventEmitter } from 'events';
 import HDKey from 'hdkey';
 
 import { LedgerBridge, LedgerBridgeOptions } from './ledger-bridge';
+import { LedgerIframeBridgeOptions } from './ledger-iframe-bridge';
 
 const pathBase = 'm';
 const hdPathString = `${pathBase}/44'/60'/0'`;
@@ -31,7 +32,7 @@ enum NetworkApiUrls {
 }
 
 type SignTransactionPayload = Awaited<
-  ReturnType<LedgerBridge<LedgerBridgeOptions>['deviceSignTransaction']>
+  ReturnType<LedgerBridge<LedgerIframeBridgeOptions>['deviceSignTransaction']>
 >;
 
 export type AccountDetails = {
